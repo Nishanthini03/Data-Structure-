@@ -1,0 +1,74 @@
+import java.util.Arrays;
+
+public class MyArray {
+    private int[] arr;
+    private int size;
+    private int capacity;
+
+    // Constructor to initialize the array
+    public MyArray(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        this.arr = new int[capacity];
+    }
+
+    // Insert element at the end
+    public void insert(int value) {
+        if (size == capacity) {
+            resize();
+        }
+        arr[size++] = value;
+    }
+
+    // Resize the array when full
+    private void resize() {
+        capacity *= 2;
+        arr = Arrays.copyOf(arr, capacity);
+    }
+
+    // Get element at a given index
+    public int get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid Index");
+        }
+        return arr[index];
+    }
+
+    // Delete element at a given index
+    public void delete(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid Index");
+        }
+        for (int i = index; i < size - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        size--;
+    }
+
+    // Get the size of the array
+    public int getSize() {
+        return size;
+    }
+
+    // Display the array
+    public void display() {
+        for (int i = 0; i < size; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // Main method for testing
+    public static void main(String[] args) {
+        MyArray myArray = new MyArray(5);
+        myArray.insert(10);
+        myArray.insert(20);
+        myArray.insert(30);
+        myArray.display();
+        
+        myArray.delete(1);
+        myArray.display();
+        
+        System.out.println("Element at index 1: " + myArray.get(1));
+    }
+}
